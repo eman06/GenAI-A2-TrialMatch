@@ -1,0 +1,30 @@
+truncated prompts: train=0 val=0
+class weights: {'exclusion/excluded': 3.65, 'exclusion/not applicable': 2.15, 'exclusion/not enough information': 1.28, 'exclusion/not excluded': 0.6, 'inclusion/included': 1.1, 'inclusion/not applicable': 4.61, 'inclusion/not enough information': 0.99, 'inclusion/not included': 2.86}
+trainable params 8.68M / 370.5M (2.34%)
+epoch 0 val_loss 0.9748
+ep 1 step 1/226 loss 0.9144 17.74s/step rss 2.02GB elapsed 2.8m eta 634.5m
+ep 1 step 5/226 loss 0.7312 12.86s/step rss 2.14GB elapsed 3.7m eta 164.8m
+ep 1 step 10/226 loss 0.3297 12.93s/step rss 2.16GB elapsed 4.7m eta 101.6m
+ep 1 step 15/226 loss 0.1682 7.45s/step rss 2.12GB elapsed 5.6m eta 78.3m
+ep 1 step 20/226 loss 0.4091 12.28s/step rss 2.16GB elapsed 6.7m eta 68.7m
+ep 1 step 25/226 loss 0.2393 15.39s/step rss 2.0GB elapsed 7.9m eta 63.8m
+ep 1 step 30/226 loss 0.2902 15.7s/step rss 2.11GB elapsed 9.5m eta 62.1m
+ep 1 step 35/226 loss 0.1579 14.8s/step rss 2.13GB elapsed 10.9m eta 59.7m
+ep 1 step 40/226 loss 0.1867 37.56s/step rss 0.46GB elapsed 38.2m eta 177.8m
+ep 1 step 45/226 loss 0.3572 45.05s/step rss 1.57GB elapsed 42.1m eta 169.1m
+ep 1 step 50/226 loss 0.1239 40.44s/step rss 2.03GB elapsed 46.0m eta 162.0m
+ep 1 step 55/226 loss 0.3099 79.18s/step rss 1.65GB elapsed 50.3m eta 156.4m
+ep 1 step 60/226 loss 0.3858 33.03s/step rss 1.62GB elapsed 53.8m eta 148.9m
+ep 1 step 65/226 loss 0.1747 40.52s/step rss 1.86GB elapsed 57.3m eta 142.0m
+ep 1 step 70/226 loss 0.1159 38.33s/step rss 1.65GB elapsed 60.6m eta 135.2m
+ep 1 step 75/226 loss 0.1186 49.16s/step rss 0.35GB elapsed 64.1m eta 129.0m
+ep 1 step 80/226 loss 0.2459 59.99s/step rss 1.01GB elapsed 67.8m eta 123.8m
+ep 1 step 85/226 loss 0.2995 42.58s/step rss 1.64GB elapsed 71.2m eta 118.0m
+ep 1 step 90/226 loss 0.3231 31.81s/step rss 1.38GB elapsed 78.0m eta 117.8m
+ep 1 step 95/226 loss 0.1391 45.98s/step rss 1.3GB elapsed 81.7m eta 112.7m
+ep 1 step 100/226 loss 0.2099 53.72s/step rss 1.33GB elapsed 86.4m eta 108.9m
+ep 1 step 105/226 loss 0.1716 34.64s/step rss 1.81GB elapsed 90.3m eta 104.1m
+ep 1 step 110/226 loss 0.1826 88.62s/step rss 1.15GB elapsed 95.1m eta 100.3m
+epoch 1 val_loss 0.1853
+  saved best adapter (epoch 1)
+ep 2 step 115/226 loss 0.1016 20.6s/step rss 1.76GB elapsed 105.5m eta 101.8m

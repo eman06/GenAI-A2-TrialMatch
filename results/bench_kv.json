@@ -1,0 +1,292 @@
+{
+  "model": "SmolLM2-360M-Instruct",
+  "adapter": "C:\\Users\\USR\\OneDrive\\Desktop\\GenAI_Assignment2\\checkpoints\\lora_smollm2_360m",
+  "dtype": "float32",
+  "threads": 10,
+  "kv_bytes_per_token": 81920,
+  "repeats": 2,
+  "rows": [
+    {
+      "input_tokens": 64,
+      "output_tokens": 32,
+      "kv_static": {
+        "total_s": {
+          "median": 5.115606650011614,
+          "mean": 5.115606650011614,
+          "std": 0.4497615499421954,
+          "n": 2
+        },
+        "prefill_s": 0.28924439987167716,
+        "decode_s": 4.37462619994767,
+        "tokens_per_s": 6.255367581854119,
+        "decode_tokens_per_s": 7.086319740957713,
+        "peak_rss_delta_mb": 9.03125,
+        "kv_cache_mb": 7.421875
+      },
+      "kv_dynamic": {
+        "total_s": {
+          "median": 5.262818550108932,
+          "mean": 5.262818550108932,
+          "std": 0.17242384993005544,
+          "n": 2
+        },
+        "prefill_s": 0.32840480003505945,
+        "decode_s": 5.103680299827829,
+        "tokens_per_s": 6.080392036190883,
+        "decode_tokens_per_s": 6.074048172853964,
+        "peak_rss_delta_mb": 5.078125,
+        "kv_cache_mb": 7.421875
+      },
+      "no_cache": {
+        "total_s": {
+          "median": 15.165465599973686,
+          "mean": 15.165465599973686,
+          "std": 0.5469697999069467,
+          "n": 2
+        },
+        "prefill_s": 0.3968645001295954,
+        "decode_s": 14.220520199974999,
+        "tokens_per_s": 2.110057207874681,
+        "decode_tokens_per_s": 2.179948381920269,
+        "peak_rss_delta_mb": 5.828125,
+        "kv_cache_mb": 0.0
+      },
+      "kv_cache_analytic_mb": 7.5,
+      "static_eq_dynamic": true,
+      "token_agreement": true,
+      "n_agree": 32,
+      "first_divergence": null,
+      "speedup_total": 2.9645488086812257,
+      "sample_output": "-old male with a history of hypertension and a family history of cardiovascular disease.\n1. A 65-year-old female with a history of"
+    },
+    {
+      "input_tokens": 256,
+      "output_tokens": 32,
+      "kv_static": {
+        "total_s": {
+          "median": 5.417180699994788,
+          "mean": 5.417180699994788,
+          "std": 0.25363830011337996,
+          "n": 2
+        },
+        "prefill_s": 0.7997458002064377,
+        "decode_s": 4.862890399992466,
+        "tokens_per_s": 5.9071317299847115,
+        "decode_tokens_per_s": 6.374809516588741,
+        "peak_rss_delta_mb": 30.1875,
+        "kv_cache_mb": 22.421875
+      },
+      "kv_dynamic": {
+        "total_s": {
+          "median": 5.7304192000301555,
+          "mean": 5.7304192000301555,
+          "std": 0.0016664998838678002,
+          "n": 2
+        },
+        "prefill_s": 0.8107491000555456,
+        "decode_s": 4.915477399947122,
+        "tokens_per_s": 5.584233697917179,
+        "decode_tokens_per_s": 6.306610218639899,
+        "peak_rss_delta_mb": 15.47265625,
+        "kv_cache_mb": 22.421875
+      },
+      "no_cache": {
+        "total_s": {
+          "median": 40.762732599978335,
+          "mean": 40.762732599978335,
+          "std": 0.28296020010020584,
+          "n": 2
+        },
+        "prefill_s": 1.0216934999916703,
+        "decode_s": 39.457228699931875,
+        "tokens_per_s": 0.7850307856941123,
+        "decode_tokens_per_s": 0.7856608540795346,
+        "peak_rss_delta_mb": 5.12109375,
+        "kv_cache_mb": 0.0
+      },
+      "kv_cache_analytic_mb": 22.5,
+      "static_eq_dynamic": true,
+      "token_agreement": true,
+      "n_agree": 32,
+      "first_divergence": null,
+      "speedup_total": 7.524713473194194,
+      "sample_output": "ocardial Ejection Fraction (EKG) and/or a history of myocardial infarction (MI) or myocardial ischemia.<|im_end|>\n<|im_start|>assistant\n"
+    },
+    {
+      "input_tokens": 512,
+      "output_tokens": 32,
+      "kv_static": {
+        "total_s": {
+          "median": 7.459886300028302,
+          "mean": 7.459886300028302,
+          "std": 0.35565150005277246,
+          "n": 2
+        },
+        "prefill_s": 1.6331408999394625,
+        "decode_s": 6.180138300172985,
+        "tokens_per_s": 4.289609615079334,
+        "decode_tokens_per_s": 5.016068976827314,
+        "peak_rss_delta_mb": 11.0390625,
+        "kv_cache_mb": 42.421875
+      },
+      "kv_dynamic": {
+        "total_s": {
+          "median": 7.520437600207515,
+          "mean": 7.520437600207515,
+          "std": 0.037701699999161065,
+          "n": 2
+        },
+        "prefill_s": 1.5763296999502927,
+        "decode_s": 5.906110499985516,
+        "tokens_per_s": 4.2550715398685055,
+        "decode_tokens_per_s": 5.248801220376087,
+        "peak_rss_delta_mb": 0.6640625,
+        "kv_cache_mb": 42.421875
+      },
+      "no_cache": {
+        "total_s": {
+          "median": 93.80307370005175,
+          "mean": 93.80307370005175,
+          "std": 14.520937100052834,
+          "n": 2
+        },
+        "prefill_s": 2.4861498000100255,
+        "decode_s": 105.82267569983378,
+        "tokens_per_s": 0.3411402072209745,
+        "decode_tokens_per_s": 0.29294288577555494,
+        "peak_rss_delta_mb": 12.03125,
+        "kv_cache_mb": 0.0
+      },
+      "kv_cache_analytic_mb": 42.5,
+      "static_eq_dynamic": true,
+      "token_agreement": true,
+      "n_agree": 32,
+      "first_divergence": null,
+      "speedup_total": 12.574330214616793,
+      "sample_output": ". Physical examination is normal.\n7. The EKG shows nonspecific changes.\n8. The patient will provide informed consent, and will comply with the"
+    },
+    {
+      "input_tokens": 128,
+      "output_tokens": 64,
+      "kv_static": {
+        "total_s": {
+          "median": 19.451296400045976,
+          "mean": 19.451296400045976,
+          "std": 0.14407859998755157,
+          "n": 2
+        },
+        "prefill_s": 1.2397380999755114,
+        "decode_s": 18.352157899877056,
+        "tokens_per_s": 3.2902691257045844,
+        "decode_tokens_per_s": 3.432838816214743,
+        "peak_rss_delta_mb": 9.1640625,
+        "kv_cache_mb": 14.921875
+      },
+      "kv_dynamic": {
+        "total_s": {
+          "median": 19.48887709993869,
+          "mean": 19.48887709993869,
+          "std": 0.32890939991921186,
+          "n": 2
+        },
+        "prefill_s": 1.1677540000528097,
+        "decode_s": 18.64929989981465,
+        "tokens_per_s": 3.2839244494081874,
+        "decode_tokens_per_s": 3.378142897505023,
+        "peak_rss_delta_mb": 0.53515625,
+        "kv_cache_mb": 14.921875
+      },
+      "no_cache": {
+        "total_s": {
+          "median": 85.92523339996114,
+          "mean": 85.92523339996114,
+          "std": 2.1070731000509113,
+          "n": 2
+        },
+        "prefill_s": 1.1629904999863356,
+        "decode_s": 86.85176320001483,
+        "tokens_per_s": 0.7448335892449137,
+        "decode_tokens_per_s": 0.725373874735444,
+        "peak_rss_delta_mb": 39.25,
+        "kv_cache_mb": 0.0
+      },
+      "kv_cache_analytic_mb": 15.0,
+      "static_eq_dynamic": true,
+      "token_agreement": true,
+      "n_agree": 64,
+      "first_divergence": null,
+      "speedup_total": 4.417455352732071,
+      "sample_output": " which she attributes to stress.\n2. She has a history of hypertension, diabetes, and a family history of heart disease.\n3. She has a history of smoking, and has been smoking"
+    },
+    {
+      "input_tokens": 1024,
+      "output_tokens": 64,
+      "kv_static": {
+        "total_s": {
+          "median": 30.251244949991815,
+          "mean": 30.251244949991815,
+          "std": 0.44874164985958487,
+          "n": 2
+        },
+        "prefill_s": 7.72462740004994,
+        "decode_s": 21.764479500008747,
+        "tokens_per_s": 2.1156154104004012,
+        "decode_tokens_per_s": 2.8946247026019933,
+        "peak_rss_delta_mb": 761.3984375,
+        "kv_cache_mb": 84.921875
+      },
+      "kv_dynamic": {
+        "total_s": {
+          "median": 28.795684350072406,
+          "mean": 28.795684350072406,
+          "std": 0.7694204499712214,
+          "n": 2
+        },
+        "prefill_s": 6.336042599985376,
+        "decode_s": 21.688591900048777,
+        "tokens_per_s": 2.2225552698086535,
+        "decode_tokens_per_s": 2.904752889921743,
+        "peak_rss_delta_mb": 99.41796875,
+        "kv_cache_mb": 84.921875
+      },
+      "kv_cache_analytic_mb": 85.0,
+      "static_eq_dynamic": true,
+      "sample_output": " and is accompanied by nausea, diaphoresis and mild dyspnea, but is not increased on inspiration.\n2. The latest episode of pain ended half an hour prior to her arrival.\n"
+    },
+    {
+      "input_tokens": 2048,
+      "output_tokens": 32,
+      "kv_static": {
+        "total_s": {
+          "median": 30.82694369996898,
+          "mean": 30.82694369996898,
+          "std": 2.0722471000626683,
+          "n": 2
+        },
+        "prefill_s": 18.953230500221252,
+        "decode_s": 13.9191269997973,
+        "tokens_per_s": 1.038052954955512,
+        "decode_tokens_per_s": 2.227151171222983,
+        "peak_rss_delta_mb": 97.13671875,
+        "kv_cache_mb": 162.421875
+      },
+      "kv_dynamic": {
+        "total_s": {
+          "median": 29.217929449980147,
+          "mean": 29.217929449980147,
+          "std": 0.22473285009618849,
+          "n": 2
+        },
+        "prefill_s": 14.983403400052339,
+        "decode_s": 14.00927980011329,
+        "tokens_per_s": 1.0952179227752137,
+        "decode_tokens_per_s": 2.212818963024017,
+        "peak_rss_delta_mb": 139.08984375,
+        "kv_cache_mb": 162.421875
+      },
+      "kv_cache_analytic_mb": 162.5,
+      "static_eq_dynamic": true,
+      "sample_output": "pecific changes.\n8. The patient will provide informed consent, and will comply with the trial protocol without any practical issues.\n\nCriterion type: exclusion"
+    }
+  ]
+}

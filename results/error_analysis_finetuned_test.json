@@ -1,0 +1,220 @@
+{
+  "tag": "finetuned",
+  "split": "test",
+  "n": 206,
+  "n_label_errors": 77,
+  "category_counts": {
+    "missed_evidence": 34,
+    "not_applicable_error": 15,
+    "unsupported_decision": 130,
+    "overclaim_missing_info": 28,
+    "evidence_only_error": 27
+  },
+  "confusions": [
+    [
+      "not enough information -> not excluded",
+      28
+    ],
+    [
+      "included -> not enough information",
+      26
+    ],
+    [
+      "not applicable -> not excluded",
+      12
+    ],
+    [
+      "not included -> not enough information",
+      7
+    ],
+    [
+      "not applicable -> not enough information",
+      3
+    ],
+    [
+      "not excluded -> not enough information",
+      1
+    ]
+  ],
+  "examples": [
+    {
+      "category": "missed_evidence",
+      "all_categories": [
+        "missed_evidence"
+      ],
+      "annotation_id": 159,
+      "patient_id": "sigir-201410",
+      "trial_id": "NCT02097186",
+      "type": "inclusion",
+      "criterion": "Age greater than 18 years",
+      "gold": "included",
+      "pred": "not enough information",
+      "gold_evidence": {
+        "0": "A physician is called to see a 67-year-old woman who underwent cardiac catheterization via the right femoral artery earlier in the morning."
+      },
+      "pred_evidence": {},
+      "raw_output": "{\"label\": \"not enough information\", \"evidence\": []}"
+    },
+    {
+      "category": "missed_evidence",
+      "all_categories": [
+        "missed_evidence"
+      ],
+      "annotation_id": 160,
+      "patient_id": "sigir-201410",
+      "trial_id": "NCT02097186",
+      "type": "inclusion",
+      "criterion": "Patient willing to give full informed consent for participation",
+      "gold": "included",
+      "pred": "not enough information",
+      "gold_evidence": {
+        "3": "The patient will provide informed consent, and will comply with the trial protocol without any practical issues."
+      },
+      "pred_evidence": {},
+      "raw_output": "{\"label\": \"not enough information\", \"evidence\": []}"
+    },
+    {
+      "category": "not_applicable_error",
+      "all_categories": [
+        "not_applicable_error",
+        "unsupported_decision"
+      ],
+      "annotation_id": 165,
+      "patient_id": "sigir-201410",
+      "trial_id": "NCT02097186",
+      "type": "exclusion",
+      "criterion": "Pregnancy",
+      "gold": "not applicable",
+      "pred": "not excluded",
+      "gold_evidence": {},
+      "pred_evidence": {},
+      "raw_output": "{\"label\": \"not excluded\", \"evidence\": []}"
+    },
+    {
+      "category": "overclaim_missing_info",
+      "all_categories": [
+        "overclaim_missing_info",
+        "unsupported_decision"
+      ],
+      "annotation_id": 169,
+      "patient_id": "sigir-201410",
+      "trial_id": "NCT02097186",
+      "type": "exclusion",
+      "criterion": "Patients with an estimated pre-operative glomerular filtration rate < 30mls/min/1.73m2",
+      "gold": "not enough information",
+      "pred": "not excluded",
+      "gold_evidence": {},
+      "pred_evidence": {},
+      "raw_output": "{\"label\": \"not excluded\", \"evidence\": []}"
+    },
+    {
+      "category": "overclaim_missing_info",
+      "all_categories": [
+        "overclaim_missing_info",
+        "unsupported_decision"
+      ],
+      "annotation_id": 174,
+      "patient_id": "sigir-201410",
+      "trial_id": "NCT02097186",
+      "type": "exclusion",
+      "criterion": "Patients with previous axillary surgery",
+      "gold": "not enough information",
+      "pred": "not excluded",
+      "gold_evidence": {},
+      "pred_evidence": {},
+      "raw_output": "{\"label\": \"not excluded\", \"evidence\": []}"
+    },
+    {
+      "category": "unsupported_decision",
+      "all_categories": [
+        "unsupported_decision",
+        "evidence_only_error"
+      ],
+      "annotation_id": 179,
+      "patient_id": "sigir-201410",
+      "trial_id": "NCT02264964",
+      "type": "exclusion",
+      "criterion": "Had been performed central venous puncture or catheterization before.",
+      "gold": "not excluded",
+      "pred": "not excluded",
+      "gold_evidence": {
+        "0": "A physician is called to see a 67-year-old woman who underwent cardiac catheterization via the right femoral artery earlier in the morning."
+      },
+      "pred_evidence": {},
+      "raw_output": "{\"label\": \"not excluded\", \"evidence\": []}"
+    },
+    {
+      "category": "unsupported_decision",
+      "all_categories": [
+        "unsupported_decision",
+        "evidence_only_error"
+      ],
+      "annotation_id": 181,
+      "patient_id": "sigir-201410",
+      "trial_id": "NCT02264964",
+      "type": "exclusion",
+      "criterion": "Refused to sign the informed consent.",
+      "gold": "not excluded",
+      "pred": "not excluded",
+      "gold_evidence": {
+        "3": "The patient will provide informed consent, and will comply with the trial protocol without any practical issues."
+      },
+      "pred_evidence": {},
+      "raw_output": "{\"label\": \"not excluded\", \"evidence\": []}"
+    },
+    {
+      "category": "evidence_only_error",
+      "all_categories": [
+        "evidence_only_error"
+      ],
+      "annotation_id": 306,
+      "patient_id": "sigir-201417",
+      "trial_id": "NCT01745731",
+      "type": "inclusion",
+      "criterion": "Patients with liver space occupying lesion (LOE) that require extended hepatic resection.",
+      "gold": "not enough information",
+      "pred": "not enough information",
+      "gold_evidence": {
+        "3": "Exploratory laparotomy reveals a ruptured liver abscess, which is then surgically drained."
+      },
+      "pred_evidence": {},
+      "raw_output": "{\"label\": \"not enough information\", \"evidence\": []}"
+    },
+    {
+      "category": "evidence_only_error",
+      "all_categories": [
+        "evidence_only_error"
+      ],
+      "annotation_id": 307,
+      "patient_id": "sigir-201417",
+      "trial_id": "NCT01745731",
+      "type": "inclusion",
+      "criterion": "Patient selection should be cautious, covering basically 5 types of liver damage which must be submitted prior to liver volumetry: Metastatic Disease subsidiary right hepatectomy extended to segment IV Metastatic Disease subsidiary right hepatectomy with suspected diseased liver (neoadjuvant chemoth",
+      "gold": "not enough information",
+      "pred": "not enough information",
+      "gold_evidence": {
+        "3": "Exploratory laparotomy reveals a ruptured liver abscess, which is then surgically drained."
+      },
+      "pred_evidence": {},
+      "raw_output": "{\"label\": \"not enough information\", \"evidence\": []}"
+    },
+    {
+      "category": "not_applicable_error",
+      "all_categories": [
+        "not_applicable_error"
+      ],
+      "annotation_id": 422,
+      "patient_id": "sigir-201422",
+      "trial_id": "NCT00236912",
+      "type": "inclusion",
+      "criterion": "If female, using birth control",
+      "gold": "not applicable",
+      "pred": "not enough information",
+      "gold_evidence": {
+        "3": "She has had no sexual partners and her menses are regular."
+      },
+      "pred_evidence": {},
+      "raw_output": "{\"label\": \"not enough information\", \"evidence\": []}"
+    }
+  ]
+}

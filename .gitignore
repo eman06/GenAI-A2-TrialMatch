@@ -1,0 +1,15 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+data/processed/
+checkpoints/
+!checkpoints/README.md
+results/app_reports/
+report/*.aux
+report/*.log
+report/*.out
+report/*.bbl
+report/*.blg
+scratch_*.py
+.venv/
+*.zip

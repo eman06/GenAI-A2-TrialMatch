@@ -1,0 +1,69 @@
+\subsection{Fine-Tuning Dynamics}
+Fig.~\ref{fig:curves} shows the answer-token loss. Validation loss fell from 0.975 (base model, before any update) to 0.185 after one epoch; the training loss of the interrupted second epoch continued to decrease ($\approx$0.10), so the model had not yet converged when the run stopped. Because only the answer tokens are supervised and most of them are deterministic JSON syntax, a low loss is reached quickly; the remaining loss is concentrated in the label and evidence tokens, which is exactly where the model is weakest (below).
+
+\begin{figure}[t]\centering
+\includegraphics[width=\columnwidth]{figures/training_curves.pdf}
+\caption{LoRA training of SmolLM2-360M: per-step training loss (light), 9-step moving average and validation loss after epoch 0 and 1. The run was terminated during epoch 2; the epoch-1 checkpoint is the final model.}\label{fig:curves}
+\end{figure}
+
+\subsection{Before vs.\ After Fine-Tuning and Label Strategies}
+Table~\ref{tab:main} reports every model/strategy on the identical validation and test examples with identical greedy decoding. Three label strategies are compared on the \emph{same} forward passes: \emph{generated} (label parsed from the greedy JSON), \emph{scored} (argmax of the log-probability of each allowed label after the prompt) and \emph{calibrated} (scored plus per-type additive biases fitted on validation macro-F1 only and frozen for test).
+
+\begin{table*}[t]\centering
+\caption{Criterion-level results (greedy decoding, fp32, max.\ 48 new tokens; $n{=}206$ criteria per split). Accuracy (Acc), macro-F1 (mF1) overall and per criterion type; evidence micro-F1 over all records and macro-F1 over records with expert evidence; share of unparseable outputs (Inv.).}\label{tab:main}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lllrrrrrrrrr}\toprule
+Split & Model & Label strategy & Acc & mF1 & Incl.\ Acc & Incl.\ mF1 & Excl.\ Acc & Excl.\ mF1 & Ev.\ micro-F1 & Ev.\ macro-F1 & Inv.\\\midrule
+\input{tables/eval_main.tex}
+\bottomrule\end{tabular}\end{table*}
+
+\textbf{Effect of fine-tuning.} The base instruct model frequently ignores the schema, mixes the two label sets or answers in prose, which our parser maps to \emph{invalid} (Table~\ref{tab:main}, last column); the fine-tuned model produced valid JSON with an allowed label for every test record. On test, accuracy changes from \baseTestAcc{} to \ftTestAcc{} and macro-F1 from \baseTestFone{} to \ftTestFone{}. The gain in accuracy, however, mostly comes from learning the label \emph{priors}: the fine-tuned generator predicts ``not excluded'' for almost every exclusion criterion and ``not enough information'' for most inclusion criteria (Fig.~\ref{fig:cm}). Given 603 skewed training examples, one epoch and a 360M model, the cross-entropy objective is minimised well by the majority class---a classic imbalance failure that the mild class weighting ($w\propto f^{-1/2}$) did not overcome.
+
+\textbf{Effect of the decision rule.} Scoring the allowed labels exposes the model's ranking, and calibration trades majority-class accuracy for minority-class recall: on test, the calibrated fine-tuned model reaches accuracy \calTestAcc{} and macro-F1 \calTestFone{}. Because biases were fitted on validation only, the test numbers are an honest estimate of this design choice; the remaining gap to useful performance shows that the representation, not just the decision threshold, is limiting. Calibration also helps the base model (test macro-F1 aseScTestFone{}$ightarrow$0.315), and on the validation split---where the biases are fitted---the calibrated base model is even marginally ahead (0.349 vs.\ 0.334); on the held-out test split, however, the calibrated fine-tuned model is better (\calTestFone{} vs.\ 0.315), i.e.\ fine-tuning improves the label ranking that the decision rule exploits, but by a modest margin. We keep calibrated scoring as the default label strategy in the application (with the generated label shown alongside) and report all three.
+
+\begin{figure*}[t]\centering
+\includegraphics[width=0.49\textwidth]{figures/confusion_finetuned_test.pdf}\hfill
+\includegraphics[width=0.49\textwidth]{figures/confusion_finetuned-calibrated_test.pdf}
+\caption{Test confusion matrices for inclusion and exclusion criteria: fine-tuned model with generated labels (left pair) and with calibrated label scoring (right pair). NEI = not enough information, N/A = not applicable. The test split contains no ``excluded'' example.}\label{fig:cm}
+\end{figure*}
+
+\textbf{Per-class view.} Table~\ref{tab:perclass} lists precision, recall and F1 per class for the final configuration. Classes with fewer than five test examples (``not included'', ``not applicable'' for inclusion) are essentially unlearned; inclusion is harder than exclusion because the inclusion label distribution is not dominated by a single class.
+
+\begin{table}[t]\centering\caption{Per-class test metrics, fine-tuned model with calibrated label scoring.}\label{tab:perclass}
+\setlength{\tabcolsep}{3.5pt}
+\begin{tabular}{llrrrr}\toprule
+Type & Label & Supp. & P & R & F1\\\midrule
+\input{tables/per_class_finetuned-calibrated_test.tex}
+\bottomrule\end{tabular}\end{table}
+
+\subsection{Evidence Sentence Localisation}
+Table~\ref{tab:evidence} reports evidence retrieval on test. The fine-tuned model almost always outputs an empty evidence list: this gives perfect \emph{abstention accuracy} on the 60\% of records whose expert evidence is empty, but very low recall on records that do have evidence, hence a low micro-F1 (\ftTestEvF{}). The model never cited a non-existent sentence ID. This is the most important weakness of the system: the training target contains one or two evidence IDs for only 40\% of examples and the IDs are a small part of the loss, so the model learned that ``[]'' is the safest answer. Remedies within reach are evidence-only up-weighting of the ID tokens, a separate sentence-relevance scorer, or more epochs.
+
+\begin{table}[t]\centering\caption{Evidence retrieval on test (fine-tuned, generated JSON). Micro over all records; macro over records with expert evidence ($n_{ev}$); abstention accuracy on records without expert evidence.}\label{tab:evidence}
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{lrrrrrrrr}\toprule
+ & \multicolumn{3}{c}{Micro} & \multicolumn{3}{c}{Macro (gold$\neq\emptyset$)} & & \\
+Subset & P & R & F1 & P & R & F1 & $n_{ev}$ & Abst.\\\midrule
+\input{tables/evidence_finetuned_test.tex}
+\bottomrule\end{tabular}\end{table}
+
+\subsection{Error Analysis}
+\input{error_section}
+
+\subsection{KV-Cached Decoding}
+\input{kv_section}
+
+\subsection{Tiled Online-Softmax Attention}
+\input{attn_section}
+
+\subsection{Speculative Decoding}
+\input{spec_section}
+
+\subsection{Application}
+Fig.~\ref{fig:app} shows the screening view on an unseen, hand-written patient note (62-year-old man with type 2 diabetes, HbA1c 9.1\%, eGFR 48, myocardial infarction two years ago). With calibrated label scoring the three inclusion criteria are judged ``included'', pregnancy ``not applicable'', and pancreatitis and recent infarction ``not excluded''; the eGFR$<$30 exclusion is judged ``not enough information'' although sentence 3 states an eGFR of 48---a missed-evidence error of the kind analysed above. The generated JSON alone would have answered ``not enough information'' for all inclusions, illustrating the prior collapse. Because no sentence is cited, every definite decision is listed for human verification. Each criterion card shows the label, the cited sentences (highlighted in the record panel when the card is clicked), the explanation and timing; the summary card shows the rule-based outcome with the blocking, missing-information and needs-verification lists. Invalid inputs (empty note, malformed NCT ID, $>$40 criteria, model still loading) return readable messages without losing the user's input, and every run is persisted as JSON and downloadable as an HTML report with provenance.
+
+\begin{figure}[t]\centering
+\includegraphics[width=0.49\columnwidth]{figures/app_screen.jpg}\hfill
+\includegraphics[width=0.49\columnwidth]{figures/app_cards.jpg}
+\caption{TrialMatch-Lite on the unseen hand-written case. Left: rule-based preliminary outcome with the missing-information and needs-verification lists, report export buttons and provenance. Right: criterion cards with label, cited evidence (none here), explanation that flags the absence of evidence, raw model output and timing.}\label{fig:app}
+\end{figure}

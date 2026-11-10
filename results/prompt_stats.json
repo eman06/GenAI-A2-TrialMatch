@@ -1,0 +1,38 @@
+{
+  "train": {
+    "prefix_mean": 208.09618573797678,
+    "prefix_max": 427,
+    "suffix_mean": 72.17744610281923,
+    "suffix_max": 277,
+    "target_mean": 14.538971807628524,
+    "target_max": 38,
+    "prompt_mean": 280.27363184079604,
+    "prompt_max": 551,
+    "truncated": 0
+  },
+  "val": {
+    "prefix_mean": 222.11165048543688,
+    "prefix_max": 262,
+    "suffix_mean": 72.48058252427184,
+    "suffix_max": 176,
+    "target_mean": 14.058252427184467,
+    "target_max": 24,
+    "prompt_mean": 294.59223300970876,
+    "prompt_max": 408,
+    "truncated": 0
+  },
+  "test": {
+    "prefix_mean": 186.16990291262135,
+    "prefix_max": 228,
+    "suffix_mean": 76.17961165048544,
+    "suffix_max": 271,
+    "target_mean": 14.097087378640778,
+    "target_max": 27,
+    "prompt_mean": 262.3495145631068,
+    "prompt_max": 451,
+    "truncated": 0
+  },
+  "mean": 279.5418719211823,
+  "max": 551,
+  "limit": 1024
+}

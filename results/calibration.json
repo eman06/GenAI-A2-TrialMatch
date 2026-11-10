@@ -1,0 +1,31 @@
+{
+  "method": "per-type additive log-prob biases fitted on validation macro-F1 (coordinate ascent, grid 0.25)",
+  "bias": {
+    "inclusion": {
+      "included": 0.0,
+      "not included": -6.0,
+      "not enough information": -0.75,
+      "not applicable": 3.25
+    },
+    "exclusion": {
+      "excluded": 0.0,
+      "not excluded": -0.25,
+      "not enough information": 0.5,
+      "not applicable": 2.5
+    }
+  },
+  "bias_base": {
+    "inclusion": {
+      "included": 0.0,
+      "not included": -1.0,
+      "not enough information": 2.75,
+      "not applicable": 0.0
+    },
+    "exclusion": {
+      "excluded": 0.0,
+      "not excluded": -1.0,
+      "not enough information": 0.75,
+      "not applicable": 0.0
+    }
+  }
+}

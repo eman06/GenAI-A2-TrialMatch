@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TrialMatch-Lite</title>
+<link rel="stylesheet" href="/static/style.css?v=2">
+</head>
+<body>
+<div class="disclaimer" id="disclaimer">EDUCATIONAL SCREENING PROTOTYPE &mdash; NOT A CLINICAL ENROLLMENT DECISION. Outputs can be wrong and must be reviewed by qualified staff.</div>
+<header>
+  <div>
+    <h1>TrialMatch-Lite</h1>
+    <p class="sub">Criterion-level clinical-trial eligibility screening with evidence &middot; fine-tuned SmolLM2-360M &middot; KV cache &middot; tiled attention &middot; speculative decoding</p>
+  </div>
+  <div id="status" class="status loading">model: loading&hellip;</div>
+</header>
+<nav>
+  <button class="tab active" data-tab="screen">1&nbsp;&nbsp;Screen a patient</button>
+  <button class="tab" data-tab="lab">2&nbsp;&nbsp;Inference lab</button>
+  <button class="tab" data-tab="exp">3&nbsp;&nbsp;Experiment results</button>
+  <button class="tab" data-tab="hist">4&nbsp;&nbsp;Saved reports</button>
+</nav>
+
+<main>
+<!-- ============================== SCREEN ============================== -->
+<section id="tab-screen" class="panel active">
+  <div class="grid2">
+    <div class="card">
+      <h2>Patient record</h2>
+      <label>Load example <select id="exampleSel"><option value="">&mdash; choose &mdash;</option></select></label>
+      <textarea id="note" rows="11" placeholder="Paste a clinical note. Numbered lines (0. ... 1. ...) keep their ids; otherwise sentences are numbered automatically."></textarea>
+      <div class="hint" id="noteHint"></div>
+    </div>
+    <div class="card">
+      <h2>Trial eligibility criteria</h2>
+      <div class="row">
+        <input id="nct" placeholder="NCT id, e.g. NCT01397994" maxlength="11">
+        <button id="fetchTrial" class="secondary">Fetch from ClinicalTrials.gov</button>
+      </div>
+      <label>Inclusion criteria (one per line)</label>
+      <textarea id="inc" rows="5"></textarea>
+      <label>Exclusion criteria (one per line)</label>
+      <textarea id="exc" rows="5"></textarea>
+      <details><summary>Paste a full eligibility section instead</summary>
+        <textarea id="rawElig" rows="5" placeholder="Inclusion Criteria:&#10;- ...&#10;Exclusion Criteria:&#10;- ..."></textarea>
+        <button id="splitElig" class="secondary">Split into criteria</button>
+      </details>
+    </div>
+  </div>
+  <div class="card runbar">
+    <label>Decoding mode
+      <select id="mode">
+        <option value="kv">Greedy + KV cache (patient prefix reused)</option>
+        <option value="nocache">Greedy, no cache (reference)</option>
+        <option value="tiled">Greedy + KV cache + tiled online-softmax attention</option>
+        <option value="speculative">Speculative (draft SmolLM2-135M)</option>
+      </select></label>
+    <label>draft k <input id="k" type="number" min="1" max="8" value="4"></label>
+    <button id="run" class="primary">Run screening</button>
+    <span id="runInfo" class="hint"></span>
+  </div>
+  <div id="err" class="error hidden"></div>
+  <div id="results" class="hidden">
+    <div class="card summary" id="summary"></div>
+    <div class="grid2 wide-left">
+      <div id="critList"></div>
+      <div class="card sticky"><h2>Record with cited sentences</h2><ol id="sentView" start="0"></ol></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== LAB ============================== -->
+<section id="tab-lab" class="panel">
+  <div class="card">
+    <h2>Decoding comparison on one criterion</h2>
+    <p class="hint">Runs the same prompt through every decoding path with deterministic greedy decoding and checks that the generated text is identical. Uses the patient note from tab&nbsp;1.</p>
+    <div class="row">
+      <select id="labCrit" class="grow"></select>
+      <label>k <input id="labK" type="number" min="1" max="8" value="4"></label>
+      <button id="labRun" class="primary">Compare decoding modes</button>
+    </div>
+    <div id="labOut"></div>
+  </div>
+  <div class="card">
+    <h2>Attention kernels &mdash; live micro-benchmark</h2>
+    <p class="hint">15 heads &times; 64 dims (SmolLM2-360M geometry), causal. Error is measured against a float64 reference.</p>
+    <div class="row">
+      <label>keys S <input id="attS" type="number" value="512" min="1" max="2048"></label>
+      <label>queries T <input id="attT" type="number" value="512" min="1" max="2048"></label>
+      <label>tile <input id="attB" type="number" value="64" min="8" max="512"></label>
+      <button id="attRun" class="primary">Run</button>
+    </div>
+    <div id="attOut"></div>
+  </div>
+</section>
+
+<!-- ============================== EXPERIMENTS ============================== -->
+<section id="tab-exp" class="panel">
+  <div id="expOut"><p class="hint">Loading experiment logs&hellip;</p></div>
+</section>
+
+<!-- ============================== HISTORY ============================== -->
+<section id="tab-hist" class="panel">
+  <div class="card"><h2>Saved screening reports</h2><p class="hint">Every run is saved on disk (results/app_reports) with provenance.</p><div id="histOut"></div></div>
+</section>
+</main>
+<script src="/static/app.js?v=2"></script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+\textbf{Correctness.} We compared all kernels with a float64 reference on eleven shapes covering single tokens ($T{=}S{=}1$), prefill ($T{=}S\in\{7,33,64,100,257,512,1024\}$), chunked prefill against a cache ($T{=}5,S{=}40$; $T{=}128,S{=}300$) and single-token decode against long caches ($T{=}1,S{=}129$), with $H{=}15$, $D{=}64$, batch 1--2 and the offset causal rule. Table~\ref{tab:attnerr} lists the worst-case and mean absolute errors. All fp32 variants and all tile sizes stay below $1.4\times10^{-6}$ and pass \texttt{allclose(atol=1e-5, rtol=1e-4)}; the float64 tiled kernel agrees to $4\times10^{-7}$ (limited by its fp32 inputs' rounding in the comparison). To stress the online softmax we multiplied the queries by 30 (logits in the hundreds): without max-subtraction $e^{s}$ would overflow, but both the explicit reference and the tiled kernel remain finite with the same $5\times10^{-5}$ error, which is the conditioning of the problem in fp32 rather than a kernel bug. Unit tests additionally check that perturbing future keys does not change earlier outputs (causality), and the whole decoder produces the same greedy tokens with \texttt{backend="tiled"} as with SDPA.
+
+\begin{table}[t]\centering\caption{Attention numerical error vs.\ float64 reference (worst / mean over 11 shapes).}\label{tab:attnerr}
+\begin{tabular}{lrr}\toprule
+Implementation & Max $|\Delta|$ & Mean $|\Delta|$\\\midrule
+\input{tables/attn_err.tex}
+\bottomrule\end{tabular}\end{table}
+
+\textbf{Speed and memory.} Fig.~\ref{fig:attn} and Table~\ref{tab:attnspeed} compare run time (median of 5 after warm-up). With small 64$\times$64 tiles the Python loop issues many tiny matrix products and is 2--4$\times$ \emph{slower} than the explicit reference, and 30$\times$ slower for single-token decode, where there is nothing to tile on the query side. Larger tiles amortise the interpreter overhead: with 256-wide tiles the tiled kernel is faster than the reference from $S{=}512$ on and, at $S{=}2048$, even faster than PyTorch's fused CPU SDPA (252 vs.\ 300\,ms), because it skips the $\approx$50\% of tiles above the causal diagonal while our SDPA call receives a dense boolean mask. The memory advantage is structural: the reference materialises fp32 score and probability matrices of $2HTS\cdot4$ bytes (480\,MB at $T{=}S{=}2048$), whereas the tiled kernel holds one tile (0.5--7.5\,MB). Measured RSS deltas are small and noisy for all kernels because PyTorch's CPU allocator reuses freed blocks between repetitions; we therefore report the analytic sizes as the reliable comparison. On GPUs a fused kernel such as FlashAttention also wins on speed because it keeps tiles in on-chip SRAM and fuses the exponentials and matrix products into one kernel launch; an educational PyTorch implementation cannot control memory placement, launches several operations per tile and runs the loop in Python, so it should not be expected to beat a fused kernel in general.
+
+\begin{figure}[t]\centering
+\includegraphics[width=\columnwidth]{figures/attn_speed.pdf}
+\caption{Causal attention time for $T{=}S$ (15 heads, $D{=}64$, fp32, 10 CPU threads). Tiled performance depends strongly on tile size.}\label{fig:attn}
+\end{figure}
+
+\begin{table}[t]\centering\caption{Attention timing (ms, median of 5) and memory (peak RSS delta and analytic largest intermediate, MB).}\label{tab:attnspeed}
+\setlength{\tabcolsep}{3pt}\footnotesize
+\begin{tabular}{rrlrrr}\toprule
+$T$ & $S$ & Impl. & ms & $\Delta$RSS & Interm.\\\midrule
+\input{tables/attn_speed.tex}
+\bottomrule\end{tabular}\end{table}

@@ -1,0 +1,54 @@
+64 32 kv_static 5.116 s
+64 32 kv_dynamic 5.263 s
+64 32 no_cache 15.165 s
+256 32 kv_static 5.417 s
+256 32 kv_dynamic 5.73 s
+256 32 no_cache 40.763 s
+512 32 kv_static 7.46 s
+512 32 kv_dynamic 7.52 s
+512 32 no_cache 93.803 s
+128 64 kv_static 19.451 s
+128 64 kv_dynamic 19.489 s
+128 64 no_cache 85.925 s
+1024 64 kv_static 30.251 s
+1024 64 kv_dynamic 28.796 s
+2048 32 kv_static 30.827 s
+2048 32 kv_dynamic 29.218 s
+[
+ {
+  "input_tokens": 64,
+  "output_tokens": 32,
+  "token_agreement": true,
+  "speedup_total": 2.9645488086812257
+ },
+ {
+  "input_tokens": 256,
+  "output_tokens": 32,
+  "token_agreement": true,
+  "speedup_total": 7.524713473194194
+ },
+ {
+  "input_tokens": 512,
+  "output_tokens": 32,
+  "token_agreement": true,
+  "speedup_total": 12.574330214616793
+ },
+ {
+  "input_tokens": 128,
+  "output_tokens": 64,
+  "token_agreement": true,
+  "speedup_total": 4.417455352732071
+ },
+ {
+  "input_tokens": 1024,
+  "output_tokens": 64,
+  "token_agreement": null,
+  "speedup_total": null
+ },
+ {
+  "input_tokens": 2048,
+  "output_tokens": 32,
+  "token_agreement": null,
+  "speedup_total": null
+ }
+]

@@ -1,0 +1,19 @@
+task 0 draft_base_135m 1 True 0.625 0.397
+task 0 draft_base_135m 2 True 0.667 1.387
+task 0 draft_base_135m 4 True 0.364 1.009
+task 1 draft_base_135m 1 True 0.625 1.061
+task 1 draft_base_135m 2 True 0.667 1.022
+task 1 draft_base_135m 4 True 0.364 0.719
+task 2 draft_base_135m 1 True 0.625 0.825
+task 2 draft_base_135m 2 True 0.667 1.001
+task 2 draft_base_135m 4 True 0.364 0.634
+long 0 draft_base_135m 1 True 0.882 1.376
+long 0 draft_base_135m 2 True 0.87 1.57
+long 0 draft_base_135m 4 True 0.75 1.634
+long 1 draft_base_135m 1 True 0.8 1.083
+long 1 draft_base_135m 2 True 0.712 1.066
+long 1 draft_base_135m 4 True 0.571 1.025
+long 2 draft_base_135m 1 True 0.909 1.266
+long 2 draft_base_135m 2 True 0.911 1.109
+long 2 draft_base_135m 4 True 0.774 1.471
+{'equal_to_ours': False, 'hf_tokens': 5, 'ours_tokens': 14}

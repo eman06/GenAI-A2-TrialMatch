@@ -1,0 +1,101 @@
+31/206 rows  acc so far 0.613  5.4 min
+70/206 rows  acc so far 0.714  12.2 min
+82/206 rows  acc so far 0.646  14.2 min
+99/206 rows  acc so far 0.636  17.0 min
+119/206 rows  acc so far 0.630  20.5 min
+148/206 rows  acc so far 0.628  25.4 min
+177/206 rows  acc so far 0.650  28.5 min
+206/206 rows  acc so far 0.631  31.1 min
+{
+  "accuracy": 0.6310679611650486,
+  "macro_f1": 0.23714833150966638,
+  "evidence_micro_f1": 0.03418803418803419,
+  "model": "SmolLM2-360M-Instruct",
+  "adapter": "C:\\Users\\USR\\OneDrive\\Desktop\\GenAI_Assignment2\\checkpoints\\lora_smollm2_360m",
+  "split": "val",
+  "n": 206,
+  "decoding": "greedy, max_new_tokens=48, fp32, sdpa, KV cache + patient-prefix reuse",
+  "parse_status_counts": {
+    "json": 206
+  },
+  "hallucinated_id_records": 0,
+  "truncated_records": 0,
+  "minutes": 31.15
+}
+31/206 rows  acc so far 0.581  1.6 min
+70/206 rows  acc so far 0.586  3.9 min
+82/206 rows  acc so far 0.549  4.5 min
+99/206 rows  acc so far 0.545  5.5 min
+119/206 rows  acc so far 0.521  6.6 min
+148/206 rows  acc so far 0.500  7.9 min
+177/206 rows  acc so far 0.525  9.4 min
+206/206 rows  acc so far 0.495  11.4 min
+{
+  "accuracy": 0.49514563106796117,
+  "macro_f1": 0.19388515601609313,
+  "evidence_micro_f1": 0.01680672268907563,
+  "model": "SmolLM2-360M-Instruct",
+  "adapter": null,
+  "split": "val",
+  "n": 206,
+  "decoding": "greedy, max_new_tokens=48, fp32, sdpa, KV cache + patient-prefix reuse",
+  "parse_status_counts": {
+    "invalid": 9,
+    "regex": 126,
+    "regex+fuzzy": 71
+  },
+  "hallucinated_id_records": 0,
+  "truncated_records": 0,
+  "minutes": 11.41
+}
+26/206 rows  acc so far 0.538  1.8 min
+41/206 rows  acc so far 0.561  3.2 min
+64/206 rows  acc so far 0.656  5.3 min
+98/206 rows  acc so far 0.510  8.4 min
+114/206 rows  acc so far 0.518  9.9 min
+156/206 rows  acc so far 0.577  13.5 min
+184/206 rows  acc so far 0.614  16.2 min
+206/206 rows  acc so far 0.626  18.2 min
+{
+  "accuracy": 0.6262135922330098,
+  "macro_f1": 0.2849830603272405,
+  "evidence_micro_f1": 0.021052631578947368,
+  "model": "SmolLM2-360M-Instruct",
+  "adapter": "C:\\Users\\USR\\OneDrive\\Desktop\\GenAI_Assignment2\\checkpoints\\lora_smollm2_360m",
+  "split": "test",
+  "n": 206,
+  "decoding": "greedy, max_new_tokens=48, fp32, sdpa, KV cache + patient-prefix reuse",
+  "parse_status_counts": {
+    "json": 206
+  },
+  "hallucinated_id_records": 0,
+  "truncated_records": 0,
+  "minutes": 18.17
+}
+26/206 rows  acc so far 0.577  1.5 min
+41/206 rows  acc so far 0.488  2.2 min
+64/206 rows  acc so far 0.469  3.6 min
+98/206 rows  acc so far 0.388  5.4 min
+114/206 rows  acc so far 0.412  5.8 min
+156/206 rows  acc so far 0.429  7.3 min
+184/206 rows  acc so far 0.435  9.0 min
+206/206 rows  acc so far 0.413  10.5 min
+{
+  "accuracy": 0.41262135922330095,
+  "macro_f1": 0.20021313403431532,
+  "evidence_micro_f1": 0.0,
+  "model": "SmolLM2-360M-Instruct",
+  "adapter": null,
+  "split": "test",
+  "n": 206,
+  "decoding": "greedy, max_new_tokens=48, fp32, sdpa, KV cache + patient-prefix reuse",
+  "parse_status_counts": {
+    "invalid": 12,
+    "regex": 106,
+    "regex+fuzzy": 88
+  },
+  "hallucinated_id_records": 0,
+  "truncated_records": 0,
+  "minutes": 10.56
+}
+ALL_EVAL_DONE

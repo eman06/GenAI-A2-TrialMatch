@@ -1,0 +1,34 @@
+inclusion val macro-F1 after calibration 0.3402 {'included': 0.0, 'not included': -6.0, 'not enough information': -0.75, 'not applicable': 3.25}
+exclusion val macro-F1 after calibration 0.3302 {'excluded': 0.0, 'not excluded': -0.25, 'not enough information': 0.5, 'not applicable': 2.5}
+finetuned  val  scored     acc 0.636 macroF1 0.252
+finetuned  val  calibrated acc 0.549 macroF1 0.334
+finetuned  test scored     acc 0.631 macroF1 0.309
+finetuned  test calibrated acc 0.437 macroF1 0.344
+inclusion val macro-F1 after calibration 0.281 {'included': 0.0, 'not included': -1.0, 'not enough information': 2.75, 'not applicable': 0.0}
+exclusion val macro-F1 after calibration 0.3438 {'excluded': 0.0, 'not excluded': -1.0, 'not enough information': 0.75, 'not applicable': 0.0}
+base       val  scored     acc 0.592 macroF1 0.232
+base       val  calibrated acc 0.621 macroF1 0.349
+base       test scored     acc 0.519 macroF1 0.263
+base       test calibrated acc 0.476 macroF1 0.315
+STEP calibrate
+{
+ "n": 206,
+ "n_label_errors": 77,
+ "category_counts": {
+  "missed_evidence": 34,
+  "not_applicable_error": 15,
+  "unsupported_decision": 130,
+  "overclaim_missing_info": 28,
+  "evidence_only_error": 27
+ }
+}
+examples: 10
+STEP errors
+STEP prompt_stats
+STEP attention
+STEP kv
+STEP spec
+figures: ['attn_speed.pdf', 'confusion_base_test.pdf', 'confusion_finetuned-calibrated_test.pdf', 'confusion_finetuned_test.pdf', 'kv_latency.pdf', 'spec_diagram.pdf', 'spec_speedup.pdf', 'system.pdf', 'tiled_diagram.pdf', 'training_curves.pdf']
+tables: ['attn_err.tex', 'attn_speed.tex', 'eval_main.tex', 'evidence_base_test.tex', 'evidence_finetuned-calibrated_test.tex', 'evidence_finetuned_test.tex', 'evidence_finetuned_val.tex', 'kv.tex', 'per_class_base_test.tex', 'per_class_finetuned-calibrated_test.tex', 'per_class_finetuned_test.tex', 'per_class_finetuned_val.tex', 'spec.tex', 'split.tex']
+STEP figures
+POST_DONE

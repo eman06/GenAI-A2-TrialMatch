@@ -1,0 +1,31 @@
+Of the 206 test criteria, the fine-tuned generator mislabels 77. Table~\ref{tab:errcats} groups all test records by error category (one record may fall in several) and Table~\ref{tab:errors} shows ten representative cases taken from \texttt{results/error\_analysis\_finetuned\_test.json}, each traceable to the original sentence IDs.
+
+\begin{table}[t]\centering\caption{Error categories on test (fine-tuned, generated labels).}\label{tab:errcats}
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{lr}\toprule
+Category & Records\\\midrule
+Definite label with no cited sentence (unsupported decision) & 130\\
+Gold definite $\rightarrow$ predicted ``not enough information'' (missed evidence) & 34\\
+Gold ``not enough information'' $\rightarrow$ definite label (absence treated as proof) & 28\\
+Correct label, evidence set differs from expert set & 27\\
+Errors involving ``not applicable'' & 15\\
+Hallucinated sentence IDs / invalid outputs & 0 / 0\\
+\bottomrule\end{tabular}\end{table}
+
+\begin{table*}[t]\centering\caption{Representative test errors of the fine-tuned model (patient sentence IDs in brackets). Gold/pred = expert/predicted label.}\label{tab:errors}
+\footnotesize\setlength{\tabcolsep}{3pt}
+\begin{tabular}{p{0.3cm}p{2.2cm}p{4.3cm}p{2.2cm}p{4.8cm}p{2.6cm}}\toprule
+\# & Category & Criterion (type) & Gold $\rightarrow$ pred & Relevant patient evidence & Diagnosis\\\midrule
+1 & missed evidence & Age greater than 18 years (incl.) & included $\rightarrow$ NEI & [0] ``\ldots a 67-year-old woman\ldots'' & explicit age not mapped to threshold\\
+2 & missed evidence & Willing to give full informed consent (incl.) & included $\rightarrow$ NEI & [3] ``The patient will provide informed consent\ldots'' & near-verbatim match ignored\\
+3 & absence as proof & Pre-operative eGFR $<$30 (excl.) & NEI $\rightarrow$ not excluded & none (no renal data) & majority prior for exclusions\\
+4 & absence as proof & Previous axillary surgery (excl.) & NEI $\rightarrow$ not excluded & none & same; contradicts ``missing $\neq$ proof''\\
+5 & not applicable & Pregnancy (excl.) & n/a $\rightarrow$ not excluded & [0] ``\ldots a 67-year-old woman\ldots'' (post-menopausal age) & applicability not reasoned\\
+6 & not applicable & If female, using birth control (incl.) & n/a $\rightarrow$ NEI & [0] 15-year-old girl; [3] ``no sexual partners\ldots'' & conditional criterion\\
+7 & unsupported (correct) & Prior central venous catheterisation (excl.) & not excl.\ $\rightarrow$ not excl. & [0] femoral arterial catheterisation & right label, no citation, wrong reason possible\\
+8 & unsupported (correct) & Refused to sign informed consent (excl.) & not excl.\ $\rightarrow$ not excl. & [3] consent provided & right label, evidence omitted\\
+9 & evidence only & Liver lesion requiring hepatic resection (incl.) & NEI $\rightarrow$ NEI & [3] ruptured liver abscess drained & related evidence not cited\\
+10 & contradictory gold & Cautious selection, 5 types of liver damage (incl.) & NEI $\rightarrow$ NEI & [3] (expert cites a sentence yet labels NEI) & annotation itself partial\\
+\bottomrule\end{tabular}\end{table*}
+
+\textbf{Interpretation.} (i) The dominant failure is \emph{prior collapse}: 28 of the 77 label errors are ``not enough information'' exclusions labelled ``not excluded'' and 26 are ``included'' inclusions labelled ``not enough information''. These are opposite directions of the same behaviour---the model picks the type-specific majority class without reading the note---and cases 1--2 show that even trivially supported criteria (age, consent) are missed. (ii) Cases 3--4 are the safety-relevant direction: treating the absence of renal or surgical history as proof that an exclusion does not apply. Our pipeline does not hide this: because no sentence is cited, the explanation states that the decision rests on absence of evidence and the application lists such criteria under ``needs verification''. (iii) ``Not applicable'' requires conditional reasoning (sex-specific criteria, cases 5--6) that the model never learned from 28 training examples. (iv) Cases 7--10 have correct labels but missing evidence; case 10 is a contradictory annotation where the expert cites a sentence but still labels ``not enough information'', illustrating that evidence and label are not always aligned in the gold data. Calibrated scoring converts many type-(i) errors into minority predictions (higher macro-F1) but also introduces new false ``included''/``not applicable'' decisions, which is why its accuracy is lower (Table~\ref{tab:main}).
